@@ -16,9 +16,9 @@ interface ConvexClientProviderProps {
 
 const convex = new ConvexReactClient(
     process.env.NEXT_PUBLIC_CONVEX_URL as string
-  );
+);
 
-  
+
 
 export const ConvexClientProvider = ({
     children,
@@ -26,9 +26,15 @@ export const ConvexClientProvider = ({
     return (
         <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
             <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
-                
-                {children}
-            
+                <Authenticated>
+                    {children}
+                </Authenticated>
+
+                <AuthLoading>
+                    <Loading />
+                </AuthLoading>
+
+
             </ConvexProviderWithClerk>
         </ClerkProvider>
     );
